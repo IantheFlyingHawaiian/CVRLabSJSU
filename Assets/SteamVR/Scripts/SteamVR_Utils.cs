@@ -11,8 +11,10 @@ using Valve.VR;
 
 public static class SteamVR_Utils
 {
-	// this version does not clamp [0..1]
-	public static Quaternion Slerp(Quaternion A, Quaternion B, float t)
+    internal static readonly object Event;
+
+    // this version does not clamp [0..1]
+    public static Quaternion Slerp(Quaternion A, Quaternion B, float t)
 	{
 		var cosom = Mathf.Clamp(A.x * B.x + A.y * B.y + A.z * B.z + A.w * B.w, -1.0f, 1.0f);
 		if (cosom < 0.0f)
