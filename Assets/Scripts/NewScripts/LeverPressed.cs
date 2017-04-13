@@ -7,12 +7,15 @@ public class LeverPressed : MonoBehaviour
 
     //public GameObject button;
     public AudioSource buttonSound;
-    public ButtonAnimation pressButtonAnimation;
+    public LeverAnimation pressLeverAnimation;
 
     //Molecule to spawmn
-    public GameObject element;
-    private bool elementSpawned = false;
-    private float respawnTime = 1.5f;
+    public GameObject grabber;
+    private bool grabberMoving = false;
+    private bool grabberInputReady = true;
+    private float respawnTime = 3f;
+
+    private Vector3 grabberBasePosition;
 
     // 1
     private SteamVR_TrackedObject trackedObj;
@@ -30,13 +33,24 @@ public class LeverPressed : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        grabberBasePosition = grabber.transform.position;
         buttonSound = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        if(grabberMoving) grabber.transform.Translate(Vector3.up * Time.deltaTime);
+        else
+        {
+            //Move grabber to base position
+            if (grabberBasePosition.y <= grabber.transform.position.y)
+            {
+                //move the object down
+                grabber.transform.Translate(Vector3.down * Time.deltaTime);
+            }
+        }
+           
     }
 
     void OnTriggerEnter(Collider other)
@@ -46,14 +60,21 @@ public class LeverPressed : MonoBehaviour
             Debug.Log("Button Pressed!");
             buttonSound.Play();
             buttonSound.Play(44100);
-            pressButtonAnimation.pressButton();
+            pressLeverAnimation.pressLever();
 
-            //Spawn Molecule
-            if (!elementSpawned)
+            if (grabberInputReady)
             {
-                Instantiate(element, transform.position + Vector3.up * 6.0f, transform.rotation);
-                elementSpawned = true;
-                StartCoroutine("Countdown", respawnTime);
+                //Move Grabber Up
+                if (grabberMoving)
+                {
+                    grabberMoving = false;
+                }
+                else
+                {
+                    grabberMoving = true;
+                }
+
+                Countdown((int)respawnTime);
             }
         }
     }
@@ -66,8 +87,11 @@ public class LeverPressed : MonoBehaviour
         {
             Debug.Log(time--);
             yield return new WaitForSeconds(1);
+            grabberInputReady = false;
+            
         }
-        elementSpawned = false;
+        //grabberMoving = false;
+        grabberInputReady = true;
         Debug.Log("CountDown Complete: Can Spawn Element again");
     }
 }
