@@ -109,34 +109,45 @@ public class RotateAroundObject : MonoBehaviour {
             electrons3rd.Add(electron);
         }
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    void Update() {
         //rotate electron around object
-        foreach(GameObject electron in electrons)
+        if (electrons != null)
         {
-            float step = radiusSpeed * Time.deltaTime;
-            electron.transform.RotateAround(transform.position, axis, rotationSpeed * Time.deltaTime);
-            desiredPosition = (electron.transform.position - transform.position).normalized * radius + transform.position;
-            electron.transform.position = Vector3.MoveTowards(electron.transform.position, desiredPosition, step);
+            foreach (GameObject electron in electrons)
+            {
+                float step = radiusSpeed * Time.deltaTime;
+                electron.transform.RotateAround(transform.position, axis, rotationSpeed * Time.deltaTime);
+                desiredPosition = (electron.transform.position - transform.position).normalized * radius + transform.position;
+                electron.transform.position = Vector3.MoveTowards(electron.transform.position, desiredPosition, step);
+            }
         }
 
-        foreach(GameObject electron in electrons2nd)
+        if (electrons2nd != null)
         {
-            float step = radiusSpeed * Time.deltaTime;
-            electron.transform.RotateAround(transform.position, axis, rotationSpeed * Time.deltaTime);
-            desiredPosition2nd = (electron.transform.position - transform.position).normalized * radius * 2.0f + transform.position;
-            electron.transform.position = Vector3.MoveTowards(electron.transform.position, desiredPosition2nd, step);
+
+            foreach (GameObject electron in electrons2nd)
+            {
+                float step = radiusSpeed * Time.deltaTime;
+                electron.transform.RotateAround(transform.position, axis, rotationSpeed * Time.deltaTime);
+                desiredPosition2nd = (electron.transform.position - transform.position).normalized * radius * 2.0f + transform.position;
+                electron.transform.position = Vector3.MoveTowards(electron.transform.position, desiredPosition2nd, step);
+            }
+
         }
 
+        if (electrons3rd != null)
+        {
+            foreach (GameObject electron in electrons3rd)
+            {
+                float step = radiusSpeed * Time.deltaTime;
+                electron.transform.RotateAround(transform.position, axis, rotationSpeed * Time.deltaTime);
+                electron.transform.position = Vector3.MoveTowards(electron.transform.position, desiredPosition3rd, step);
+                desiredPosition3rd = (electron.transform.position - transform.position).normalized * radius * 3.0f + transform.position;
+            }
+        }
         
-        foreach (GameObject electron in electrons3rd)
-        {
-            float step = radiusSpeed * Time.deltaTime;
-            electron.transform.RotateAround(transform.position, axis, rotationSpeed * Time.deltaTime);
-            electron.transform.position = Vector3.MoveTowards(electron.transform.position, desiredPosition3rd, step);
-            desiredPosition3rd = (electron.transform.position - transform.position).normalized * radius * 3.0f + transform.position;
-        }
     }
 
 }

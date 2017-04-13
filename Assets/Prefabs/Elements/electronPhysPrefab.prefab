@@ -9,46 +9,46 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1748997411469024}
+  m_RootGameObject: {fileID: 1036125038593242}
   m_IsPrefabParent: 1
---- !u!1 &1748997411469024
+--- !u!1 &1036125038593242
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 4544024143646974}
-  - component: {fileID: 33343763545329102}
-  - component: {fileID: 23707660852620438}
-  - component: {fileID: 65724434521221762}
-  - component: {fileID: 54909095024815056}
+  - component: {fileID: 4714572157801052}
+  - component: {fileID: 33721591732442302}
+  - component: {fileID: 23786974887001002}
+  - component: {fileID: 54285889782164756}
+  - component: {fileID: 135540930968970110}
   m_Layer: 0
-  m_Name: Gold Atomic Structure Borh Model 1
+  m_Name: electronPhysPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4544024143646974
+--- !u!4 &4714572157801052
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1748997411469024}
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: -0.29577637, y: 2.4306455, z: 109.09}
-  m_LocalScale: {x: 5.516545, y: 5.5165434, z: 5.5165434}
+  m_GameObject: {fileID: 1036125038593242}
+  m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+  m_LocalPosition: {x: -0.0000015537, y: -0.025714, z: 0.00000030856}
+  m_LocalScale: {x: -1.825863, y: -1.8258626, z: -1.8258626}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
---- !u!23 &23707660852620438
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!23 &23786974887001002
 MeshRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1748997411469024}
+  m_GameObject: {fileID: 1036125038593242}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -56,7 +56,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 3dc92e0cc5cafbe48a2170b68cde9d63, type: 2}
+  - {fileID: 2100000, guid: b899ac6d1aab19a48b49114cd73c6670, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -74,19 +74,19 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
---- !u!33 &33343763545329102
+--- !u!33 &33721591732442302
 MeshFilter:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1748997411469024}
-  m_Mesh: {fileID: 4300000, guid: d147628fde42c444e98805c335c7ec0c, type: 3}
---- !u!54 &54909095024815056
+  m_GameObject: {fileID: 1036125038593242}
+  m_Mesh: {fileID: 4300000, guid: 80f7c88330d3509488f3d0268435b5e6, type: 3}
+--- !u!54 &54285889782164756
 Rigidbody:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1748997411469024}
+  m_GameObject: {fileID: 1036125038593242}
   serializedVersion: 2
   m_Mass: 1
   m_Drag: 0
@@ -96,15 +96,15 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!65 &65724434521221762
-BoxCollider:
+--- !u!135 &135540930968970110
+SphereCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1748997411469024}
+  m_GameObject: {fileID: 1036125038593242}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2.65, y: 2.06, z: 1.22}
-  m_Center: {x: 0, y: 0, z: 0.05959637}
+  m_Radius: 0.029032558
+  m_Center: {x: -0.000000014901161, y: -0.0000000027939673, z: -0.00025252716}
