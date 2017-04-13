@@ -8,8 +8,10 @@ public class RotateAroundObject : MonoBehaviour {
 
     public GameObject electronPrefab;
     //public Transform center;
-    public Vector3 axis = new Vector3(50, 54, -12);
+    [SerializeField] private Vector3 axis = new Vector3(50, 54, -12);
     public Vector3 desiredPosition;
+    public Vector3 desiredPosition2nd;
+    public Vector3 desiredPosition3rd;
     public float radius = 50.0f;
     public float radiusSpeed = 0.5f;
     public float rotationSpeed = 400.0f;
@@ -31,6 +33,8 @@ public class RotateAroundObject : MonoBehaviour {
     public const int SIXTH_SHELL = 18;
     public const int SEVENTH_SHELL = 9;
 
+    public float electronScale = 100f;
+
     //radial distance
     public float radialDistance = 100f;
 
@@ -38,6 +42,8 @@ public class RotateAroundObject : MonoBehaviour {
     ArrayList electrons;
     //electron array second shell
     ArrayList electrons2nd;
+    //electron array second shell
+    ArrayList electrons3rd;
 
 
     // Use this for initialization
@@ -45,6 +51,7 @@ public class RotateAroundObject : MonoBehaviour {
 
         electrons = new ArrayList();
         electrons2nd = new ArrayList();
+        electrons3rd = new ArrayList();
 
         /*Instanitate each electron at each shell
 
@@ -60,11 +67,11 @@ public class RotateAroundObject : MonoBehaviour {
         {
   
             Quaternion rotation = Quaternion.identity;
-            int eulerAngle = 90 * (i + 1);
-            rotation.eulerAngles = new Vector3(eulerAngle, eulerAngle, 0);
+            int eulerAngle = 90 * (i+1);
+            rotation.eulerAngles = new Vector3(0, eulerAngle, 0);
             transform.rotation = rotation;
             electron = Instantiate(electronPrefab, transform.position - new Vector3(-10f, 10f), transform.rotation);
-            electron.transform.localScale += new Vector3(100F, 100F, 100F);
+            electron.transform.localScale += new Vector3(electronScale, electronScale, electronScale);
             electron.transform.parent = GameObject.Find(this.name).transform;
             electron.transform.position = (electron.transform.position - transform.position).normalized * radius + transform.position;
             electrons.Add(electron);
@@ -80,10 +87,26 @@ public class RotateAroundObject : MonoBehaviour {
             rotation.eulerAngles = new Vector3(eulerAngle, eulerAngle, 0);
             transform.rotation = rotation;
             electron = Instantiate(electronPrefab, transform.position - new Vector3(-10f, 10f), transform.rotation);
-            electron.transform.localScale += new Vector3(100F, 100F, 100F);
+            electron.transform.localScale += new Vector3(electronScale, electronScale, electronScale);
             electron.transform.parent = GameObject.Find(this.name).transform;
             electron.transform.position = (electron.transform.position - transform.position).normalized * radius * 2.0f+ transform.position;
             electrons2nd.Add(electron);
+        }
+
+        //Generate Third Shell
+        for (int i = 0; i < thirdShellElecCount; i++)
+        {
+
+            Quaternion rotation = Quaternion.identity;
+            int eulerAngle = 16 * (i+1);
+            
+            rotation.eulerAngles = new Vector3(eulerAngle, eulerAngle, 0);
+            transform.rotation = rotation;
+            electron = Instantiate(electronPrefab, transform.position - new Vector3(-10f, 10f), transform.rotation);
+            electron.transform.localScale += new Vector3(electronScale, electronScale, electronScale);
+            electron.transform.parent = GameObject.Find(this.name).transform;
+            electron.transform.position = (electron.transform.position - transform.position).normalized * radius * 3.0f + transform.position;
+            electrons3rd.Add(electron);
         }
     }
 	
@@ -102,8 +125,17 @@ public class RotateAroundObject : MonoBehaviour {
         {
             float step = radiusSpeed * Time.deltaTime;
             electron.transform.RotateAround(transform.position, axis, rotationSpeed * Time.deltaTime);
-            desiredPosition = (electron.transform.position - transform.position).normalized * radius * 2.0f + transform.position;
-            electron.transform.position = Vector3.MoveTowards(electron.transform.position, desiredPosition, step);
+            desiredPosition2nd = (electron.transform.position - transform.position).normalized * radius * 2.0f + transform.position;
+            electron.transform.position = Vector3.MoveTowards(electron.transform.position, desiredPosition2nd, step);
+        }
+
+        
+        foreach (GameObject electron in electrons3rd)
+        {
+            float step = radiusSpeed * Time.deltaTime;
+            electron.transform.RotateAround(transform.position, axis, rotationSpeed * Time.deltaTime);
+            electron.transform.position = Vector3.MoveTowards(electron.transform.position, desiredPosition3rd, step);
+            desiredPosition3rd = (electron.transform.position - transform.position).normalized * radius * 3.0f + transform.position;
         }
     }
 
