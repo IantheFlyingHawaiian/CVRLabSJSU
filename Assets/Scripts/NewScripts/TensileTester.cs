@@ -7,6 +7,11 @@ public class TensileTester : MonoBehaviour {
     // 1
     private GameObject collidingObject;
 
+    private GameObject testingObject;
+
+    //lever that triggers the testing
+    public GameObject lever;
+
     //
     private bool materialGrabbed;
 
@@ -20,7 +25,19 @@ public class TensileTester : MonoBehaviour {
 		
         if(materialGrabbed == true)
         {
-            collidingObject.transform.localPosition = Vector3.zero;
+            if (testingObject != null)
+            {
+                //Keeps the Testing Object placed in the Grabber
+                testingObject.transform.position = this.transform.position + Vector3.right * 1.2f;
+                testingObject.transform.position = testingObject.transform.position + Vector3.up * 2.8f;
+                
+            }
+        }
+
+        //check if lever has been pressed and if so what direction
+        if (lever.GetComponent<LeverPressed>().grabberMovingUp)
+        {
+            StartCoroutine(ScaleOverTime(10.0f));
         }
 	}
 
@@ -34,11 +51,18 @@ public class TensileTester : MonoBehaviour {
         // 2 Bind to collidingObject
         if(col.gameObject.tag == "material")
         {
-            collidingObject = col.gameObject;
-            collidingObject.transform.parent = this.transform;
-            collidingObject.transform.localPosition = Vector3.zero;
-            materialGrabbed = true;
-            Debug.Log("Material Mounted");
+            if (!materialGrabbed)
+            {
+                collidingObject = col.gameObject;
+                //collidingObject.transform.parent = this.transform;
+                //collidingObject.transform.localPosition = Vector3.zero;
+                materialGrabbed = true;
+                Destroy(collidingObject);
+                testingObject = Instantiate(Resources.Load("materialBarT", typeof(GameObject))) as GameObject;
+                testingObject.transform.parent = this.transform;
+                testingObject.transform.rotation = Quaternion.Euler(-90, 90, 0);
+                Debug.Log("Material Mounted");
+            }
         }
         
     }
@@ -64,5 +88,22 @@ public class TensileTester : MonoBehaviour {
         }
 
         collidingObject = null;
+    }
+
+    IEnumerator ScaleOverTime(float time)
+    {
+        Vector3 originalScale = testingObject.transform.localScale;
+        Vector3 destinationScale = new Vector3(.05f, 1.0f, 3.4f);
+
+        float currentTime = 0.0f;
+
+        do
+        {
+            testingObject.transform.localScale = Vector3.Lerp(originalScale, destinationScale, currentTime / time);
+            currentTime += Time.deltaTime;
+            yield return null;
+        } while (currentTime <= time);
+
+        
     }
 }

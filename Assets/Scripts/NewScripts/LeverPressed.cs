@@ -11,11 +11,11 @@ public class LeverPressed : MonoBehaviour
 
     //Molecule to spawmn
     public GameObject grabber;
-    private bool grabberMoving = false;
+    public bool grabberMovingUp = false;
     private bool grabberInputReady = true;
     private float respawnTime = 3f;
 
-    private Vector3 grabberBasePosition;
+    public Vector3 grabberBasePosition;
 
     // 1
     private SteamVR_TrackedObject trackedObj;
@@ -40,7 +40,7 @@ public class LeverPressed : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (grabberMoving)
+        if (grabberMovingUp)
         {
             //Move Grabber up
             if (grabberBasePosition.y + 10 > grabber.transform.position.y)
@@ -72,13 +72,13 @@ public class LeverPressed : MonoBehaviour
             if (grabberInputReady)
             {
                 //Move Grabber Up
-                if (grabberMoving)
+                if (grabberMovingUp)
                 {
-                    grabberMoving = false;
+                    grabberMovingUp = false;
                 }
                 else
                 {
-                    grabberMoving = true;
+                    grabberMovingUp = true;
                 }
 
                 Countdown((int)respawnTime);
