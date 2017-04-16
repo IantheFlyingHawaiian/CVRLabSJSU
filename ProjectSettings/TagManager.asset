@@ -9,6 +9,7 @@ TagManager:
   - Fire
   - rightHand
   - leftHand
+  - material
   layers:
   - Default
   - TransparentFX

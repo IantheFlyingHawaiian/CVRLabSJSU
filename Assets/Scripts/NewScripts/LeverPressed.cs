@@ -40,7 +40,14 @@ public class LeverPressed : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(grabberMoving) grabber.transform.Translate(Vector3.up * Time.deltaTime);
+        if (grabberMoving)
+        {
+            //Move Grabber up
+            if (grabberBasePosition.y + 10 > grabber.transform.position.y)
+            {
+                grabber.transform.Translate(Vector3.up * Time.deltaTime);
+            }
+        }
         else
         {
             //Move grabber to base position

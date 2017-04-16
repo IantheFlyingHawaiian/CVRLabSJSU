@@ -13,8 +13,9 @@ public class ButtonPressedSpawn100 : MonoBehaviour
     public GameObject element;
     private bool elementSpawned = false;
     private float respawnTime = 1.5f;
-
-    public float spawnNumber = 200;
+    public int spawnCount = 0;
+    public float spawnNumber = 0;
+    public float heatScalar = 400.0f;
 
     // 1
     private SteamVR_TrackedObject trackedObj;
@@ -37,8 +38,21 @@ public class ButtonPressedSpawn100 : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
 
+    {
+        int min = 0;
+        int max = 100;
+        var thrust = Random.Range(1.0f, 4.0f);
+        Vector3 randomVector = new Vector3(Random.Range(min, max), Random.Range(min, max), Random.Range(min, max));
+
+        if (spawnNumber > 0)
+        {
+            var obj = Instantiate(element, transform.position + randomVector * 2.0f, transform.rotation);
+            var obj2 = Instantiate(element, transform.position + randomVector * 2.0f, transform.rotation);
+            obj.GetComponent<Rigidbody>().AddForce(transform.forward + randomVector * heatScalar * thrust);
+            spawnNumber -=2;
+            spawnCount += 2;
+        }
     }
 
     void OnTriggerEnter(Collider other)
@@ -53,14 +67,8 @@ public class ButtonPressedSpawn100 : MonoBehaviour
             //Spawn Molecule
             if (!elementSpawned)
             {
-                int min = 0;
-                int max = 100;
-                Vector3 randomVector = new Vector3(Random.Range(min, max), Random.Range(min, max), Random.Range(min, max));
 
-                for (int i = 0; i < spawnNumber; i++)
-                {
-                    Instantiate(element, transform.position + randomVector * 2.0f, transform.rotation);
-                }
+                spawnNumber = spawnNumber + 200;
                 elementSpawned = true;
                 StartCoroutine("Countdown", respawnTime);
             }
@@ -79,5 +87,7 @@ public class ButtonPressedSpawn100 : MonoBehaviour
         elementSpawned = false;
         Debug.Log("CountDown Complete: Can Spawn Element again");
     }
+
+
 }
 
