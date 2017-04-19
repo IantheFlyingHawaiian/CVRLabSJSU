@@ -12,6 +12,8 @@ public class TensileTester : MonoBehaviour {
     //lever that triggers the testing
     public GameObject lever;
 
+    public GameObject graph;
+
     //
     private bool materialGrabbed;
 
@@ -28,7 +30,7 @@ public class TensileTester : MonoBehaviour {
             if (testingObject != null)
             {
                 //Keeps the Testing Object placed in the Grabber
-                testingObject.transform.position = this.transform.position + Vector3.right * 1.2f;
+                testingObject.transform.position = this.transform.position;
                 testingObject.transform.position = testingObject.transform.position + Vector3.up * 2.8f;
                 
             }
@@ -38,6 +40,8 @@ public class TensileTester : MonoBehaviour {
         if (lever.GetComponent<LeverPressed>().grabberMovingUp)
         {
             StartCoroutine(ScaleOverTime(10.0f));
+            //start graphing
+            GameObject graph = Instantiate(Resources.Load("LineGraph", typeof(GameObject))) as GameObject;
         }
 	}
 
@@ -60,7 +64,9 @@ public class TensileTester : MonoBehaviour {
                 Destroy(collidingObject);
                 testingObject = Instantiate(Resources.Load("materialBarT", typeof(GameObject))) as GameObject;
                 testingObject.transform.parent = this.transform;
-                testingObject.transform.rotation = Quaternion.Euler(-90, 90, 0);
+                testingObject.transform.rotation = Quaternion.Euler(-90, 180, 0);
+                testingObject.transform.position = this.transform.position;
+                testingObject.transform.position = testingObject.transform.position + Vector3.up * 2.8f;
                 Debug.Log("Material Mounted");
             }
         }
@@ -92,17 +98,20 @@ public class TensileTester : MonoBehaviour {
 
     IEnumerator ScaleOverTime(float time)
     {
-        Vector3 originalScale = testingObject.transform.localScale;
-        Vector3 destinationScale = new Vector3(.05f, 1.0f, 3.4f);
-
-        float currentTime = 0.0f;
-
-        do
+        if (testingObject != null)
         {
-            testingObject.transform.localScale = Vector3.Lerp(originalScale, destinationScale, currentTime / time);
-            currentTime += Time.deltaTime;
-            yield return null;
-        } while (currentTime <= time);
+            Vector3 originalScale = testingObject.transform.localScale;
+            Vector3 destinationScale = new Vector3(.05f, 1.0f, 3.4f);
+
+            float currentTime = 0.0f;
+
+            do
+            {
+                testingObject.transform.localScale = Vector3.Lerp(originalScale, destinationScale, currentTime / time);
+                currentTime += Time.deltaTime;
+                yield return null;
+            } while (currentTime <= time);
+        }
 
         
     }

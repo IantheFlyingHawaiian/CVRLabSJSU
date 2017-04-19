@@ -35,22 +35,58 @@ public class LineGraphManager : MonoBehaviour {
 	private float lrWidth = 0.1f;
 	private int dataGap = 0;
 
+   
 
-	void Start(){
+    //tensile equation testing
+    public double Force = 18000;
+    public double L0 = 400;
+    public double Li = 403;
+    public double sigma;
+    public double epsilon;
+    public double A0;
+    //3mm in meters
+    public double length = 0.03;
+    //4mm in meters
+    public double width = 0.04;
 
-		// adding random data
-		int index = Random.Range(20,120);
-		for(int i = 0; i < index; i++){
+
+
+
+    void Start(){
+
+        
+
+        // adding random data
+        //ENTER IN EQUATION HERE FOR TENSILE TESTING 
+        //GD Graphs the Data 
+        //ε = δ / L0
+        //http://www.engineeringarchives.com/les_mom_truestresstruestrainengstressengstrain.html
+        //assume it's a steel sheet
+        //A0 = l * w, l = 3mm, w = 4mm
+        A0 = length * width;
+
+        double index = 18;
+        //hard code results
+       
+
+        
+        for (int i = 0; i < index; i++){
 			GraphData gd = new GraphData();
-			gd.marbles = Random.Range(10,47);
-			graphDataPlayer1.Add(gd);
+            //calculate sigma
+            //sigma = F/A0
+            //in N/m2
+            //sigma = Force / A0;
+            //line of best fit from excel
+            gd.marbles = -0.002f * (i*i*i) - 0.158f * (i*i) + 5.227f*i + 2.6331f;
+            graphDataPlayer1.Add(gd);
 			GraphData gd2 = new GraphData();
 			gd2.marbles = Random.Range(10,47);
 			graphDataPlayer2.Add(gd2);
 		}
+        
 
-		// showing graph
-		ShowGraph();
+        // showing graph
+        ShowGraph();
 	}
 	
 	public void ShowData(GraphData[] gdlist,int playerNum,float gap) {
@@ -75,11 +111,12 @@ public class LineGraphManager : MonoBehaviour {
 		gd.marbles = numOfStones;
 		graphDataPlayer1.Add(gd);
 	}
+    /*
 	public void AddPlayer2Data(int numOfStones){
 		GraphData gd = new GraphData();
 		gd.marbles = numOfStones;
 		graphDataPlayer2.Add(gd);
-	}
+	}*/
 
 	public void ShowGraph(){
 
@@ -146,7 +183,7 @@ public class LineGraphManager : MonoBehaviour {
 			}
 
 			ShowData(gd1,1,gap);
-			ShowData(gd2,2,gap);
+			//ShowData(gd2,2,gap);
 		}
 	}
 
@@ -288,8 +325,8 @@ public class LineGraphManager : MonoBehaviour {
 			
 			
 			p.transform.position = endpoint;
-			GameObject pointerblue = Instantiate(pointerBlue,endpoint,pointerBlue.transform.rotation) as GameObject; 
-			pointerblue.transform.parent = holder.transform;
+			//GameObject pointerblue = Instantiate(pointerBlue,endpoint,pointerBlue.transform.rotation) as GameObject; 
+			//pointerblue.transform.parent = holder.transform;
 			startpoint = endpoint;
 
 			if(dataGap > 1){

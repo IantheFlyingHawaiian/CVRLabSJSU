@@ -13,8 +13,6 @@ public class BunsenHeat : MonoBehaviour {
   public AudioClip steelAudio;
   public AudioClip paperAudio;
 
-  private float startSpeed;
-
   bool audioPlayed = false;
   bool paperCoroutine = false;
   bool boilCoroutine = false;
@@ -37,7 +35,7 @@ public class BunsenHeat : MonoBehaviour {
     if(other.gameObject.GetComponent<FluidHolderScript>()) {
 
       FluidHolderScript fluid = other.gameObject.GetComponent<FluidHolderScript>();
-      fluid.solution.temperature += (startSpeed * heatRate);
+      fluid.solution.temperature += (bunsen.startSpeed * heatRate);
 
       if(fluid.solution.temperature > 200) {
 
@@ -56,7 +54,7 @@ public class BunsenHeat : MonoBehaviour {
 
     else if(other.gameObject.GetComponent<SteelFire>()) {
 
-      if(startSpeed >= 5) {
+      if(bunsen.startSpeed >= 5) {
         if(!audioPlayed) {
           audio.clip = steelAudio;
           audio.Play();
