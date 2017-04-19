@@ -17,8 +17,8 @@ public class RotateAroundObject : MonoBehaviour {
     public float rotationSpeed = 400.0f;
 
     //electron shells values 1s, 
-    public int firstShellElecCount = 2;
-    public int secondShellElecCount = 4;
+    public int firstShellElecCount = 0;
+    public int secondShellElecCount = 0;
     public int thirdShellElecCount = 0;
     public int fourthShellElecCount = 0;
     public int fifthShellElecCount = 0;
@@ -63,6 +63,7 @@ public class RotateAroundObject : MonoBehaviour {
         */
 
         //Generate First Shell
+        
         for (int i =0; i < firstShellElecCount; i++)
         {
   

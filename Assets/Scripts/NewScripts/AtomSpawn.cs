@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ElementBohrModel : MonoBehaviour
+public class AtomSpawn : MonoBehaviour
 {
-
-
-    public GameObject element;
+    public string prefab;
+    private GameObject element;
     private bool elementSpawned = false;
     private float respawnTime = 30.0f;
 
@@ -17,8 +16,9 @@ public class ElementBohrModel : MonoBehaviour
             // 2
             if (!elementSpawned)
             {
-                Instantiate(element, transform.position + new Vector3(6,0,-6), transform.rotation);
-
+                Debug.Log("Element spawn" + prefab);
+                element = (GameObject) Instantiate(Resources.Load(prefab));
+                element.transform.position = this.transform.position + (Vector3.forward * 3.0f);
                 elementSpawned = true;
                 StartCoroutine("Countdown", 10);
             }

@@ -14,7 +14,8 @@ public class ButtonPressedSpawn100 : MonoBehaviour
     private bool elementSpawned = false;
     private float respawnTime = 1.5f;
     public int spawnCount = 0;
-    public float spawnNumber = 0;
+    public float spawnQueueCount = 0;
+    public int spawnNumberPerPress = 50;
     public float heatScalar = 400.0f;
 
     // 1
@@ -45,12 +46,12 @@ public class ButtonPressedSpawn100 : MonoBehaviour
         var thrust = Random.Range(1.0f, 4.0f);
         Vector3 randomVector = new Vector3(Random.Range(min, max), Random.Range(min, max), Random.Range(min, max));
 
-        if (spawnNumber > 0)
+        if (spawnQueueCount > 0)
         {
             var obj = Instantiate(element, transform.position + randomVector * 2.0f, transform.rotation);
             var obj2 = Instantiate(element, transform.position + randomVector * 2.0f, transform.rotation);
             obj.GetComponent<Rigidbody>().AddForce(transform.forward + randomVector * heatScalar * thrust);
-            spawnNumber -=2;
+            spawnQueueCount -=2;
             spawnCount += 2;
         }
     }
@@ -68,7 +69,7 @@ public class ButtonPressedSpawn100 : MonoBehaviour
             if (!elementSpawned)
             {
 
-                spawnNumber = spawnNumber + 200;
+                spawnQueueCount = spawnQueueCount + spawnNumberPerPress;
                 elementSpawned = true;
                 StartCoroutine("Countdown", respawnTime);
             }
