@@ -1,11 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PanelManagerUI : MonoBehaviour {
 
 
     public GameObject chaptersPanel;
+
 
 	// Use this for initialization
 	void Start () {
@@ -28,6 +30,12 @@ public class PanelManagerUI : MonoBehaviour {
     public void HideSettingsPanel()
     {
         chaptersPanel.SetActive(false);
+    }
+
+    public void LoadScene(string sceneToLoad)
+    {
+        Debug.Log(sceneToLoad);
+        SceneManager.LoadScene(sceneToLoad);
     }
 }
 

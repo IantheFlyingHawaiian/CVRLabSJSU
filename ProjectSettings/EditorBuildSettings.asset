@@ -10,4 +10,10 @@ EditorBuildSettings:
   - enabled: 0
     path: C:/Users/Jwoozy/Desktop/SBHacks-recorder/ASsets/TheLab.unity
   - enabled: 1
+    path: Assets/Scenes/MainMenuUI.unity
+  - enabled: 0
     path: Assets/TheLab 1.unity
+  - enabled: 1
+    path: Assets/Scenes/TheLab 1.unity
+  - enabled: 1
+    path: Assets/Scenes/chapter6.unity
