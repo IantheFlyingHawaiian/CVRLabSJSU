@@ -64,7 +64,10 @@ public class TensileTester : MonoBehaviour {
                 Destroy(collidingObject);
                 testingObject = Instantiate(Resources.Load("materialBarT", typeof(GameObject))) as GameObject;
                 testingObject.transform.parent = this.transform;
+                //Material Bar T Rotation
                 testingObject.transform.rotation = Quaternion.Euler(-90, 180, 0);
+                //d638-type1 Rotation
+                //testingObject.transform.rotation = Quaternion.Euler(0, 90, -90);
                 testingObject.transform.position = this.transform.position;
                 testingObject.transform.position = testingObject.transform.position + Vector3.up * 2.8f;
                 Debug.Log("Material Mounted");
