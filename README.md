@@ -25,3 +25,8 @@ Molecules are within the Assets --> Prefabs --> Molecules folder. These molecule
 2. Open up "The Lab" 
 3. Make sure the HTC Vive Steam VR is setup
 4. Click Play to Run Simulation.
+
+
+## Acknowledgements
+
+This VR project is a fork off of the https://github.com/connor-a-smith/SBHacks lab created by Connor Smith, Anish Kannan, and Kristin Agcaoili. 
